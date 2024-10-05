@@ -12,8 +12,6 @@ if (isset($_SESSION['user_id'])) {
 
 <head>
     <meta charset="utf-8">
-
-
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link id="pagestyle" href="../assets/css/material-dashboard.min.css" rel="stylesheet" />
@@ -27,7 +25,6 @@ if (isset($_SESSION['user_id'])) {
     <div class="container">
         <h1>Latest post</h1>
         <?php
-
         $post = $conn->prepare("SELECT * FROM posts WHERE status= ? limit 9 ");
         $post->execute(['active']);
         if ($post->rowCount() > 0) {
@@ -39,37 +36,31 @@ if (isset($_SESSION['user_id'])) {
                 $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
                 $likes_num->execute([$post_id]);
                 $final_likes_num = $comments_num->rowCount();
-
-
-
         ?>
                 <div class="row mt-n5">
                     <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
-                            <div class="blog-grid-img position-relative"><img alt="img" src="../assets/images/<?=$fetch_post['image']?>"></div>
+                            <div class="blog-grid-img position-relative"><img alt="img" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
                             <div class="blog-grid-text p-4">
-                                <h3 class="h5 mb-3"><a href="#!"></a><?=$fetch_post['title']?></h3>
+                                <h3 class="h5 mb-3"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
                                 <p class="display-30"><?= $fetch_post['content']; ?></p>
                                 <div class="meta meta-style2">
                                     <ul>
-                                        <li><a href="#!"><i class="fas fa-calendar-alt"></i> <?=$fetch_post['date']?></a></li>
+                                        <li><a href="#!"><i class="fas fa-calendar-alt"></i> <?= $fetch_post['date'] ?></a></li>
                                         <li><a href="#!"><i class="fas fa-user"></i><?= $fetch_post['name']; ?></a></li>
-                                        <li><a href="#!"><i class="fas fa-comments"></i><?=$final_comments_num?></a></li>
-                                        <li><a href="#!"><i class="fas fa-thumbs-up"></i><?=$final_likes_num?></a></li>
+                                        <li><a href="#!"><i class="fas fa-comments"></i><?= $final_comments_num ?></a></li>
+                                        <li><a href="#!"><i class="fas fa-thumbs-up"></i><?= $final_likes_num ?></a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
             <?php
             }
-        }else{
+        } else {
             echo '<p class="empty">no posts added yet!</p>';
         }
             ?>
-
             <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                 <div class="col-12">
                     <div class="pagination text-small text-uppercase text-extra-dark-gray">

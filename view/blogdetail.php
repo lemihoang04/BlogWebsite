@@ -1,3 +1,13 @@
+<?php
+include '../config/dbcon.php';
+session_start();
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $user_id = '';
+};
+$get_id = $_GET['post_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +15,7 @@
     <meta charset="utf-8">
 
 
-    <title>Blog Detail App - Bootdey.com</title>
+    <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css">
@@ -16,22 +26,42 @@
     <div id="main-content" class="blog-page">
         <div class="container">
             <div class="row clearfix">
+            <?php
+         $select_posts = $conn->prepare("SELECT * FROM `posts` WHERE status = ? AND id = ?");
+         $select_posts->execute(['active', $get_id]);
+         if($select_posts->rowCount() > 0){
+            while($fetch_post = $select_posts->fetch(PDO::FETCH_ASSOC)){
+               
+                $post_id = $fetch_post['id'];
+                $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
+                $comments_num->execute([$post_id]);
+                $final_comments_num = $comments_num->rowCount();
+                $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
+                $likes_num->execute([$post_id]);
+                $final_likes_num = $comments_num->rowCount();
+      ?>
                 <div class="col-lg-8 col-md-12 left-box">
                     <div class="card single_post">
                         <div class="body">
-                        <h2><a href="blog-details.html">All photographs are accurate</a></h2>
+                        <h2><?=$fetch_post['title']?></h2>
                             <div class="img-post">
-                                <img class="d-block img-fluid" src="https://www.bootdey.com/image/800x280/87CEFA/000000" alt="First slide">
+                                <img class="d-block img-fluid" src="../assets/images/<?=$fetch_post['image']?>" alt="First slide">
                             </div>
-                            
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p><?= $fetch_post['content']; ?></p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="header">
-                            <h2>Comments 3</h2>
+                            <h2>Comments <?= $final_comments_num; ?></h2>
                         </div>
+                        
                         <div class="body">
+                        <?php
+                    $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
+                    $select_comments->execute([$get_id]);
+                    if($select_comments->rowCount() > 0){
+                        while($fetch_comments = $select_comments->fetch(PDO::FETCH_ASSOC)){
+                        ?>
                             <ul class="comment-reply list-unstyled">
                                 <li class="row clearfix">
                                     <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image"></div>
@@ -75,6 +105,14 @@
                         </div>
                     </div>
                 </div>
+                <?php
+            }
+        }else{
+            echo '<p class="empty">no posts added yet!</p>';
+        }
+            ?>
+
+
                 <div class="col-lg-4 col-md-12 right-box">
                     <div class="card">
                         <div class="body search">
@@ -88,20 +126,11 @@
                     </div>
                     <div class="card">
                         <div class="header">
-                            <h2>Categories Clouds</h2>
+                            <h2>Categories</h2>
                         </div>
                         <div class="body widget">
                             <ul class="list-unstyled categories-clouds m-b-0">
                                 <li><a href="javascript:void(0);">eCommerce</a></li>
-                                <li><a href="javascript:void(0);">Microsoft Technologies</a></li>
-                                <li><a href="javascript:void(0);">Creative UX</a></li>
-                                <li><a href="javascript:void(0);">Wordpress</a></li>
-                                <li><a href="javascript:void(0);">Angular JS</a></li>
-                                <li><a href="javascript:void(0);">Enterprise Mobility</a></li>
-                                <li><a href="javascript:void(0);">Website Design</a></li>
-                                <li><a href="javascript:void(0);">HTML5</a></li>
-                                <li><a href="javascript:void(0);">Infographics</a></li>
-                                <li><a href="javascript:void(0);">Wordpress Development</a></li>
                             </ul>
                         </div>
                     </div>

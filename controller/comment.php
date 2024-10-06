@@ -24,8 +24,8 @@ if (!empty($user_id) && !empty($comment_content) && !empty($post_id)) {
                     <img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image">
                 </div>
                 <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                    <h5 class="m-b-0">' . htmlspecialchars($user_name) . '</h5>
-                    <p>' . htmlspecialchars($comment) . '</p>
+                    <h5 class="m-b-0">' . htmlspecialchars($username) . '</h5>
+                    <p>' . htmlspecialchars($comment_content) . '</p>
                     <ul class="list-inline">
                         <li><a href="javascript:void(0);">' . date('Y-m-d') . '</a></li>
                     </ul>

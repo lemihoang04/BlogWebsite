@@ -244,12 +244,10 @@ $get_id = $_GET['post_id'];
     </script>
     <script type="text/javascript">
         $('#comment_submit').click(function() {
-            // Ngăn không cho form tải lại trang
-
-            var comment_content = $('#comment_content').val(); // Lấy nội dung bình luận
-            var username = <?= $username; ?>;
-            var post_id = <?= $post_id; ?>; // ID bài viết hiện tại (lấy từ PHP)
-            var user_id = <?= $user_id; ?>; // Lấy user_id từ session
+            var comment_content = $('#comment_content').val();
+            var username = "<?= $username; ?>";
+            var post_id = "<?= $post_id; ?>";
+            var user_id = "<?= $user_id; ?>";
 
             if (comment_content != "") {
                 // Gửi dữ liệu bằng AJAX

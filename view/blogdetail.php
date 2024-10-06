@@ -3,9 +3,14 @@ include '../config/dbcon.php';
 session_start();
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    $user = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+    $user->execute([$user_id]);
+    $userfetch = $user->fetch(PDO::FETCH_ASSOC);
+    $username = $userfetch['name'];
 } else {
     $user_id = '';
 };
+
 $get_id = $_GET['post_id'];
 ?>
 <!DOCTYPE html>
@@ -18,99 +23,116 @@ $get_id = $_GET['post_id'];
     <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=1">
+
 </head>
 
+
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
     <div id="main-content" class="blog-page">
         <div class="container">
             <div class="row clearfix">
-            <?php
-         $select_posts = $conn->prepare("SELECT * FROM `posts` WHERE status = ? AND id = ?");
-         $select_posts->execute(['active', $get_id]);
-         if($select_posts->rowCount() > 0){
-            while($fetch_post = $select_posts->fetch(PDO::FETCH_ASSOC)){
-               
-                $post_id = $fetch_post['id'];
-                $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
-                $comments_num->execute([$post_id]);
-                $final_comments_num = $comments_num->rowCount();
-                $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
-                $likes_num->execute([$post_id]);
-                $final_likes_num = $comments_num->rowCount();
-      ?>
-                <div class="col-lg-8 col-md-12 left-box">
-                    <div class="card single_post">
-                        <div class="body">
-                        <h2><?=$fetch_post['title']?></h2>
-                            <div class="img-post">
-                                <img class="d-block img-fluid" src="../assets/images/<?=$fetch_post['image']?>" alt="First slide">
-                            </div>
-                            <p><?= $fetch_post['content']; ?></p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="header">
-                            <h2>Comments <?= $final_comments_num; ?></h2>
-                        </div>
-                        
-                        <div class="body">
-                        <?php
-                    $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
-                    $select_comments->execute([$get_id]);
-                    if($select_comments->rowCount() > 0){
-                        while($fetch_comments = $select_comments->fetch(PDO::FETCH_ASSOC)){
-                        ?>
-                            <ul class="comment-reply list-unstyled">
-                                <li class="row clearfix">
-                                    <div class="icon-box col-md-2 col-4"><img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image"></div>
-                                    <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                        <h5 class="m-b-0">Gigi Hadid </h5>
-                                        <p>Why are there so many tutorials on how to decouple WordPress? how fast and easy it is to get it running (and keep it running!) and its massive ecosystem. </p>
-                                        <ul class="list-inline">
-                                            <li><a href="javascript:void(0);">Mar 09 2018</a></li>
-                                            <li><a href="javascript:void(0);">Reply</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="header">
-                            <h2>Leave a reply <small>Your email address will not be published. Required fields are marked*</small></h2>
-                        </div>
-                        <div class="body">
-                            <div class="comment-form">
-                                <form class="row clearfix">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Your Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Email Address">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <?php
-            }
-        }else{
-            echo '<p class="empty">no posts added yet!</p>';
-        }
-            ?>
+                $select_posts = $conn->prepare("SELECT * FROM `posts` WHERE status = ? AND id = ?");
+                $select_posts->execute(['active', $get_id]);
+                if ($select_posts->rowCount() > 0) {
+                    while ($fetch_post = $select_posts->fetch(PDO::FETCH_ASSOC)) {
+
+                        $post_id = $fetch_post['id'];
+                        $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
+                        $comments_num->execute([$post_id]);
+                        $final_comments_num = $comments_num->rowCount();
+                        $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
+                        $likes_num->execute([$post_id]);
+                        $final_likes_num = $likes_num->rowCount();
+                        $liked_check = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ? AND user_id = ?");
+                        $liked_check->execute([$post_id, $user_id]);
+                        if ($liked_check->rowCount() > 0) {
+                            $liked = true;
+                        } else {
+                            $liked = false;
+                        }
+                ?>
+                        <div class="col-lg-8 col-md-12 left-box">
+                            <div class="card single_post">
+                                <div class="body">
+                                    <h2><?= $fetch_post['title'] ?></h2>
+                                    <div class="img-post">
+                                        <img class="d-block img-fluid" src="../assets/images/<?= $fetch_post['image'] ?>" alt="First slide">
+                                    </div>
+                                    <p><?= $fetch_post['content']; ?></p>
+
+                                </div>
+                                <hr>
+                                <button class="like <?php if ($liked == true) echo "selected" ?>" data-post-id=<?php echo $post_id; ?>>
+                                    <i class="fa fa-thumbs-up fa-lg"></i>
+                                    <span class="likes_count" data-count=<?php echo $final_likes_num ?>><?php echo $final_likes_num ?></span>
+                                </button>
+                            </div>
+                            <div class="card">
+                                <div class="header">
+                                    <h2>Comments <?= $final_comments_num; ?></h2>
+                                </div>
+
+                                <div class="body">
+                                    <div id="comments-section">
+                                        <?php
+                                        // Hiển thị bình luận hiện tại
+                                        $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
+                                        $select_comments->execute([$get_id]);
+                                        if ($select_comments->rowCount() > 0) {
+                                            while ($fetch_comments = $select_comments->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                                <ul class="comment-reply list-unstyled">
+                                                    <li class="row clearfix">
+                                                        <div class="icon-box col-md-2 col-4">
+                                                            <img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image">
+                                                        </div>
+                                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                                            <h5 class="m-b-0"><?= $fetch_comments['user_name'] ?></h5>
+                                                            <p><?= $fetch_comments['comment'] ?></p>
+                                                            <ul class="list-inline">
+                                                                <li><a href="javascript:void(0);"><?= $fetch_comments['date'] ?></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo '<p class="empty">no Comment yet!</p>';
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="header">
+                                    <h2>Leave a comment</h2>
+                                </div>
+                                <div class="body">
+                                    <div class="comment-form">
+                                        <div id="commentForm" class="row clearfix">
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea id="comment_content" rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                                </div>
+                                                <button id="comment_submit" class="btn btn-block btn-primary">SUBMIT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo '<p class="empty">no posts added yet!</p>';
+                }
+                ?>
 
 
                 <div class="col-lg-4 col-md-12 right-box">
@@ -197,7 +219,62 @@ $get_id = $_GET['post_id'];
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
+        $('.like').click(function() {
+            var data = {
+                post_id: <?= $post_id; ?>,
+            };
+            $.ajax({
+                url: '../controller/like.php',
+                type: 'post',
+                data: data,
+                success: function(response) {
+                    var likes = $('.likes_count');
+                    var likesCount = parseInt(likes.text());
+                    var likesButton = $(".like");
+                    if (response == 'newlike') {
+                        likes.html(likesCount + 1);
+                        likesButton.addClass('selected');
+                    } else if (response == 'deletelike') {
+                        likes.html(likesCount - 1);
+                        likesButton.removeClass('selected');
+                    }
+                }
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        $('#comment_submit').click(function() {
+            // Ngăn không cho form tải lại trang
 
+            var comment_content = $('#comment_content').val(); // Lấy nội dung bình luận
+            var username = <?= $username; ?>;
+            var post_id = <?= $post_id; ?>; // ID bài viết hiện tại (lấy từ PHP)
+            var user_id = <?= $user_id; ?>; // Lấy user_id từ session
+
+            if (comment_content != "") {
+                // Gửi dữ liệu bằng AJAX
+                $.ajax({
+                    url: '../controller/comment.php', // File PHP xử lý
+                    type: 'post',
+                    data: {
+                        user_id: user_id,
+                        comment_content: comment_content,
+                        post_id: post_id,
+                        username: username
+                    },
+                    success: function(response) {
+                        // Thêm bình luận mới vào phần bình luận
+                        $("#comments-section").prepend(response);
+                        // Xóa form sau khi gửi
+                    },
+                    error: function() {
+                        alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    }
+                });
+            } else {
+                alert('Please enter a comment.');
+            }
+        });
     </script>
 </body>
 

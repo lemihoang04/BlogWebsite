@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
                         ?>
 
                         <div class="px-5 ms-xl-4">
-                            <img src="https://vectorlogoseek.com/wp-content/uploads/2019/10/bloq-vector-logo.png" alt="Logo" style="width: 150px; height: auto; margin-top: 30px;">
+                            <img src="../assets/images/logo1.png" alt="Logo" style="width: 100px; height: auto; margin-top: 30px;">
                         </div>
 
                         <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 pt-5 pt-xl-0 mt-xl-n5">
@@ -44,22 +44,22 @@
                             <form style="width: 23rem;" action="../controller/login_register.php" method="POST">
 
                                 <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register</h3>
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="text" id="form2Example18" name="name" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example18">Name</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="addon-wrapping">Full Name</span>
+                                    <input type="text" class="form-control" placeholder="" name="name" aria-label="Username" aria-describedby="addon-wrapping">
                                 </div>
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="email" id="form2Example18" name="email" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example18">Email address</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="addon-wrapping">Email</span>
+                                    <input type="email" class="form-control" placeholder="" name="email" aria-label="Username" aria-describedby="addon-wrapping">
                                 </div>
 
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="password" id="form2Example28" name="pass" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example28">Password</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="addon-wrapping">Password</span>
+                                    <input type="password" class="form-control" placeholder="" name="pass" aria-label="Username" aria-describedby="addon-wrapping">
                                 </div>
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="password" id="form2Example28" name="cpass" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form2Example28">Comfirm password</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="addon-wrapping">Comfirm Password</span>
+                                    <input type="password" class="form-control" placeholder="" name="cpass" aria-label="Username" aria-describedby="addon-wrapping">
                                 </div>
 
                                 <div class="pt-1 mb-4">

@@ -1,6 +1,11 @@
+
 body{
     background-color: #f4f7f6;
     margin-top:20px;
+}
+.selected {
+    color: blue;
+    outline: 1px solid black;
 }
 .card {
     background: #fff;
@@ -257,3 +262,4 @@ body{
         padding: 30px
     }
 }
+

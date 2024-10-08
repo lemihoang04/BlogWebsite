@@ -18,14 +18,28 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Account
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Update Profile</a></li>
-            <li><a class="dropdown-item" href="../controller/logout.php">Logout</a></li>
-          </ul>
+
+
+        <?php
+        if (isset($_SESSION['user_id'])) {
+        ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Account
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Update Profile</a></li>
+              <li><a class="dropdown-item" href="../controller/logout.php">Logout</a></li>
+            </ul>
+          <?php
+        } else {
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php">Login</a>
+          </li>
+        <?php
+        }
+        ?>
         </li>
       </ul>
     </div>

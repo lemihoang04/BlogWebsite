@@ -18,19 +18,18 @@ $get_id = $_GET['post_id'];
 
 <head>
     <meta charset="utf-8">
-
-
     <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=1">
+    <link href="../assets/css/bootstrap.min.css?v=2" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+
 
 </head>
 
 
 <body>
-
+    <?php include './navbar.php'; ?>
+    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=2">
     <div id="main-content" class="blog-page">
         <div class="container">
             <div class="row clearfix">
@@ -217,7 +216,7 @@ $get_id = $_GET['post_id'];
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         $('.like').click(function() {
             var data = {

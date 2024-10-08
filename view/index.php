@@ -14,13 +14,14 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="utf-8">
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link id="pagestyle" href="../assets/css/material-dashboard.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
     <link href="../assets/css/bootstrap.min.css?v=1" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
     <?php include './navbar.php'; ?>
     <div class="container">
         <h1>Latest post</h1>

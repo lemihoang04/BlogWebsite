@@ -5,9 +5,17 @@ body{
 .blog-page{
     margin-top: 20px;
 }
+.like {
+    border-radius: .55rem;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: #242424;
+}
+
 .selected {
     color: blue;
-    outline: 1px solid black;
+    border: 2px solid blue;
 }
 .card {
     background: #fff;

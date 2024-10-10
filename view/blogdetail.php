@@ -20,7 +20,7 @@ $get_id = $_GET['post_id'];
     <meta charset="utf-8">
     <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../assets/css/bootstrap.min.css?v=2" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css?v=5" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
 
 
@@ -29,7 +29,7 @@ $get_id = $_GET['post_id'];
 
 <body>
     <?php include './navbar.php'; ?>
-    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=3">
     <div id="main-content" class="blog-page">
         <div class="container">
             <div class="row clearfix">
@@ -64,7 +64,6 @@ $get_id = $_GET['post_id'];
                                     <p><?= $fetch_post['content']; ?></p>
 
                                 </div>
-                                <hr>
                                 <button class="like <?php if ($liked == true) echo "selected" ?>" data-post-id=<?php echo $post_id; ?>>
                                     <i class="fa fa-thumbs-up fa-lg"></i>
                                     <span class="likes_count" data-count=<?php echo $final_likes_num ?>><?php echo $final_likes_num ?></span>
@@ -78,7 +77,6 @@ $get_id = $_GET['post_id'];
                                 <div class="body">
                                     <div id="comments-section">
                                         <?php
-                                        // Hiển thị bình luận hiện tại
                                         $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
                                         $select_comments->execute([$get_id]);
                                         if ($select_comments->rowCount() > 0) {

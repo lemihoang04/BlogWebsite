@@ -52,14 +52,16 @@ session_start();
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="addon-wrapping">Password</span>
-                                    <input type="password" class="form-control" placeholder="" name="pass" aria-label="Username" aria-describedby="addon-wrapping">
+                                    <input type="password" class="form-control" placeholder="" name="pass" id="pass" aria-label="Username" aria-describedby="addon-wrapping">
                                 </div>
 
                                 <div class="pt-1 mb-4">
                                     <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit" name="login_btn">Login</button>
                                 </div>
 
-                                <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
+                                <!-- <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p> -->
+                                <input type="checkbox" id="showpass" class="showpass" name="showpass"><label for=" showpass"> Show password</label>
+
                                 <p>Don't have an account? <a href="register.php" class="link-info">Register here</a></p>
                             </form>
                         </div>
@@ -71,5 +73,15 @@ session_start();
                 </div>
             </div>
         </section>
+        <script>
+            document.getElementById("showpass").addEventListener("change", function() {
+                var passwordInput = document.getElementById("pass");
+                if (this.checked) {
+                    passwordInput.type = "text"; // Hiển thị mật khẩu
+                } else {
+                    passwordInput.type = "password"; // Ẩn mật khẩu
+                }
+            });
+        </script>
     </div>
 </body>

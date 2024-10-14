@@ -63,11 +63,11 @@ session_start();
                                 </div>
 
                                 <div class="pt-1 mb-4">
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit" name="register_btn">Login</button>
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit" name="register_btn">Register</button>
                                 </div>
 
-                                <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-                                <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
+
+                                <p>Already have an account? <a href="login.php" class="link-info">Login here</a></p>
                             </form>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <?php
-    $db_name = 'mysql:host=localhost;dbname=blog_db';
-    $user_name = 'root';
-    $user_password = '';
-    $conn = new PDO($db_name, $user_name, $user_password);
-?>
+$servername = 'localhost:3307';
+$username = 'root';
+$password = '';
+$db = 'blog_db';
+$conn = new PDO("mysql:host=" . $servername . ";dbname=" . $db, $username, $password);;

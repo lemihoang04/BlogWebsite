@@ -67,6 +67,7 @@ $get_id = $_GET['post_id'];
                                 <button class="like <?php if ($liked == true) echo "selected" ?>" data-post-id=<?php echo $post_id; ?>>
                                     <i class="fa fa-thumbs-up fa-lg"></i>
                                     <span class="likes_count" data-count=<?php echo $final_likes_num ?>><?php echo $final_likes_num ?></span>
+                                    Like
                                 </button>
                             </div>
                             <div class="card">

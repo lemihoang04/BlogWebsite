@@ -20,7 +20,7 @@ $get_id = $_GET['post_id'];
     <meta charset="utf-8">
     <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../assets/css/bootstrap.min.css?v=5" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css?v=6" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
 
 
@@ -28,8 +28,9 @@ $get_id = $_GET['post_id'];
 
 
 <body>
+    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=4">
     <?php include './navbar.php'; ?>
-    <link rel="stylesheet" type="text/css" href="../assets/css/blogdetail.css?v=3">
+
     <div id="main-content" class="blog-page">
         <div class="container">
             <div class="row clearfix">

@@ -34,20 +34,21 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <div class="container">
         <h1>Latest post</h1>
-        <?php
-        $post = $conn->prepare("SELECT * FROM posts WHERE status= ? limit 9 ");
-        $post->execute(['active']);
-        if ($post->rowCount() > 0) {
-            while ($fetch_post =  $post->fetch(PDO::FETCH_ASSOC)) {
-                $post_id = $fetch_post['id'];
-                $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
-                $comments_num->execute([$post_id]);
-                $final_comments_num = $comments_num->rowCount();
-                $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
-                $likes_num->execute([$post_id]);
-                $final_likes_num = $comments_num->rowCount();
-        ?>
-                <div class="row mt-n5">
+        <div class="row mt-n5">
+            <?php
+            $post = $conn->prepare("SELECT * FROM posts WHERE status= ? limit 9 ");
+            $post->execute(['active']);
+            if ($post->rowCount() > 0) {
+                while ($fetch_post =  $post->fetch(PDO::FETCH_ASSOC)) {
+                    $post_id = $fetch_post['id'];
+                    $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
+                    $comments_num->execute([$post_id]);
+                    $final_comments_num = $comments_num->rowCount();
+                    $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
+                    $likes_num->execute([$post_id]);
+                    $final_likes_num = $comments_num->rowCount();
+            ?>
+
                     <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
                             <div class="blog-grid-img position-relative"><img alt="img" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
@@ -66,10 +67,10 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                     </div>
             <?php
+                }
+            } else {
+                echo '<p class="empty">no posts added yet!</p>';
             }
-        } else {
-            echo '<p class="empty">no posts added yet!</p>';
-        }
             ?>
             <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                 <div class="col-12">
@@ -84,7 +85,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
-                </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

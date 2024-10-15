@@ -61,7 +61,7 @@ body{
     opacity: 1;
     -webkit-transition: -webkit-transform .4s ease, opacity .4s ease;
     transition: transform .4s ease, opacity .4s ease;
-    max-width: 100%;
+    min-width: 100%;
     filter: none;
     -webkit-filter: grayscale(0);
     -webkit-transform: scale(1.01)

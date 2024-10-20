@@ -16,43 +16,52 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
-    <link id="pagestyle" href="assets/css/material-dashboard.min.css?v=1" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+<?php include("navbar.php"); ?>
 
 <body class="g-sidenav-show  bg-gray-200">
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
-        <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-                <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
-            </a>
-        </div>
-        <hr class="horizontal light mt-0 mb-2">
-        <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/dashboard.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">dashboard</i>
-                        </div>
-                        <span class="nav-link-text ms-1">First page</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/tables.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Second Page</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-            <div class="mx-3">
-                <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"> <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"> <span class="fs-5 d-none d-sm-inline">Menu</span> </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item"> <a href="#" class="nav-link align-middle px-0"> <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span> </a> </li>
+                        <li> <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle"> <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100"> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a> </li>
+                                <li> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a> </li>
+                            </ul>
+                        </li>
+                        <li> <a href="#" class="nav-link px-0 align-middle"> <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a> </li>
+                        <li> <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle "> <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100"> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a> </li>
+                                <li> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a> </li>
+                            </ul>
+                        </li>
+                        <li> <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle"> <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li class="w-100"> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a> </li>
+                                <li> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a> </li>
+                                <li> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a> </li>
+                                <li> <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a> </li>
+                            </ul>
+                        </li>
+                        <li> <a href="#" class="nav-link px-0 align-middle"> <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a> </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown pb-4"> <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false"> <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle"> <span class="d-none d-sm-inline mx-1">loser</span> </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </aside>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">

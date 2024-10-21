@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/navbar.css?v=2">
 <nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
   <div class="container">
     <a class="navbar-brand" href="#">

@@ -16,9 +16,9 @@
                 <div class="form-group text-center">
                     <label for="avatar">Avatar</label>
                     <div>
-                        <img id="avatarPreview" src="" alt="Avatar" class="img-thumbnail mb-3" style="width: 250px; height: 250px; object-fit: cover;">
+                        <img id="avatarPreview" src="../assets/images/<?= $userfetch['avatar'] ?>" alt="Avatar" class="img-thumbnail mb-3" style="width: 250px; height: 250px; object-fit: cover;">
                     </div>
-                    <input type="file" class="form-control-file" id="avatar" onchange="previewAvatar(event)">
+                    <input type="file" name="image" class="form-control-file" id="avatar" onchange="previewAvatar(event)">
                 </div>
             </div>
             <div class="col-md-5">
@@ -31,7 +31,7 @@
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" id="email" value="<?= $userfetch['email'] ?>">
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                <button type="submit" name="update" class="btn btn-primary mt-3">Update</button>
             </div>
         </div>
 

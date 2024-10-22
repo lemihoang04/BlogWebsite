@@ -28,7 +28,7 @@
               Account
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Update Profile</a></li>
+              <li><a class="dropdown-item" href="dashboard.php">Update Profile</a></li>
               <li><a class="dropdown-item" href="../controller/logout.php">Logout</a></li>
             </ul>
           <?php

@@ -2,11 +2,22 @@
 <div class="col py-3 ms-3">
     <h1>Profile update</h1>
     <?php
+    if (isset($_SESSION['message'])) {
+    ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong></strong> <?= $_SESSION['message']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php
+        unset($_SESSION['message']);
+    }
+    ?>
+    <?php
     $user = $conn->prepare("SELECT * FROM users WHERE id = ?");
     $user->execute([$user_id]);
     $userfetch = $user->fetch(PDO::FETCH_ASSOC);
     ?>
-    <form>
+    <form action="../controller/updateinfo.php" method="POST" enctype="multipart/form-data">
         <div class="row">
             <!-- Phần bên trái: Name và Email -->
 
@@ -25,11 +36,11 @@
                 <h2>Personal info</h2>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" value="<?= $userfetch['name'] ?>">
+                    <input type="text" class="form-control" name="name" id="name" value="<?= $userfetch['name'] ?>">
                 </div>
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" value="<?= $userfetch['email'] ?>">
+                    <input type="email" class="form-control" name="email" id="email" value="<?= $userfetch['email'] ?>">
                 </div>
                 <button type="submit" name="update" class="btn btn-primary mt-3">Update</button>
             </div>

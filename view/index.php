@@ -14,7 +14,8 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="utf-8">
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=2">
     <link href="../assets/css/bootstrap.min.css?v=1" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
     <style>
@@ -26,7 +27,7 @@ if (isset($_SESSION['user_id'])) {
 
     <?php include './navbar.php'; ?>
     <div class="image-container">
-        <img src="../assets/images/japan.jpg" alt="Your Image Description" style="width:100%; height:400px; margin-bottom:30px">
+        <img src="../assets/images/japan.jpg" alt="Your Image Description" style="width:100%; height:400px; padding: 20px">
         <div class="text-overlay">
             <h1>Discover Our Blog</h1>
             <p>Your Source for the Latest Insights and Stories</p>

@@ -1,3 +1,10 @@
+.body {
+    font-family: 'Roboto', sans-serif; 
+}
+
+.h1, h3, p {
+    font-family: 'Roboto', sans-serif;
+}
 .image-container {
     position: relative;
     text-align: center;

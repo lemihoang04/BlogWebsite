@@ -176,7 +176,15 @@
     font-weight: 400;
     padding: 0
 }
-
+.blog-grid-text a {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    padding: 0
+}
 a, a:active, a:focus {
     color: #575a7b;
     text-decoration: none;

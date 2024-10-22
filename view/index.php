@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=6">
     <link href="../assets/css/bootstrap.min.css?v=1" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
     <style>
@@ -50,11 +50,11 @@ if (isset($_SESSION['user_id'])) {
                     $final_likes_num = $comments_num->rowCount();
             ?>
 
-                    <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    <div class="col-md-6 col-lg-4 mb-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
-                            <div class="blog-grid-img position-relative"><img alt="img" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
+                            <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
                             <div class="blog-grid-text p-4">
-                                <h3 class="h5 mb-3"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
+                                <h3 class="h5 mb-2"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
                                 <p class="display-30"><?= $fetch_post['content']; ?></p>
                                 <div class="meta meta-style2">
                                     <ul>

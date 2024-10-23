@@ -15,7 +15,8 @@ if (isset($_SESSION['user_id'])) {
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=6">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=3">
     <link href="../assets/css/bootstrap.min.css?v=1" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
     <style>
@@ -34,7 +35,25 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
     <div class="container">
-        <h1>Latest post</h1>
+        <div class="row mt-3 mb-3">
+            <div class="col d-flex">
+                <h4 for="categorySelect" class="me-2 mb-0">Category</h4>
+                <select class="form-select rounded-5" aria-label="Default select example">
+                    <option selected>All</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col">
+                <div class="input-group border rounded-5 ">
+                    <input type="text" class="form-control rounded-5 border-0" placeholder="Search" aria-label="Search">
+                    <span class="input-group-text border-0 rounded-5"><i class="bi bi-search"></i></span>
+                </div>
+            </div>
+        </div>
         <div class="row mt-n5">
             <?php
             $post = $conn->prepare("SELECT * FROM posts WHERE status= ? limit 9 ");
@@ -53,7 +72,7 @@ if (isset($_SESSION['user_id'])) {
                     <div class="col-md-6 col-lg-4 mb-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
                             <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
-                            <div class="blog-grid-text p-4">
+                            <div class="blog-grid-text p-3">
                                 <h3 class="h5 mb-2"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
                                 <p class="display-30"><?= $fetch_post['content']; ?></p>
                                 <div class="meta meta-style2">

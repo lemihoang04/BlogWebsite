@@ -28,36 +28,72 @@ if (isset($_SESSION['user_id'])) {
 
     <?php include './navbar.php'; ?>
     <div class="image-container">
-        <img src="../assets/images/japan.jpg" alt="Your Image Description" style="width:100%; height:400px; padding: 20px">
+        <img src="../assets/images/japan.jpg" alt="Your Image Description" style="width:100%; height:400px; padding: 35px">
         <div class="text-overlay">
             <h1>Discover Our Blog</h1>
             <p>Your Source for the Latest Insights and Stories</p>
         </div>
     </div>
     <div class="container">
-        <div class="row mt-3 mb-3">
-            <div class="col d-flex">
-                <h4 for="categorySelect" class="me-2 mb-0">Category</h4>
-                <select class="form-select rounded-5" aria-label="Default select example">
-                    <option selected>All</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-4">
-            </div>
-            <div class="col">
-                <div class="input-group border rounded-5 ">
-                    <input type="text" class="form-control rounded-5 border-0" placeholder="Search" aria-label="Search">
-                    <span class="input-group-text border-0 rounded-5"><i class="bi bi-search"></i></span>
+        <form method="GET" action="">
+            <div class="row mt-3 mb-3">
+                <div class="col d-flex">
+                    <h4 for="categorySelect" class="me-2 mb-0">Category</h4>
+                    <select name="category" class="form-select rounded-5" aria-label="Default select example">
+                        <option value="" <?= isset($_GET['category']) && $_GET['category'] == '' ? 'selected' : '' ?>>All</option>
+                        <?php
+                        $category = $conn->prepare("SELECT DISTINCT category FROM posts");
+                        $category->execute();
+                        while ($category_item = $category->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                            <option value="<?= $category_item['category'] ?>" <?= isset($_GET['category']) && $_GET['category'] == $category_item['category'] ? 'selected' : '' ?>>
+                                <?= $category_item['category'] ?>
+                            </option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="col-4"></div>
+
+                <div class="col">
+                    <div class="input-group border rounded-5 ">
+                        <input name="search" type="text" class="form-control rounded-5 border-0" placeholder="Search" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" aria-label="Search">
+                        <button class="input-group-text border-0 rounded-5" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="row mt-n5">
             <?php
-            $post = $conn->prepare("SELECT * FROM posts WHERE status= ? limit 9 ");
-            $post->execute(['active']);
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
+            $category = isset($_GET['category']) ? $_GET['category'] : '';
+            $status = 'active';
+
+            $query = "SELECT * FROM posts WHERE status = :status";
+            $params = ['status' => $status];
+
+            // Add search filter if provided
+            if (!empty($search)) {
+                $query .= " AND (title LIKE :search OR content LIKE :search)";
+                $params['search'] = '%' . $search . '%';
+            }
+
+            // Add category filter if selected
+            if (!empty($category)) {
+                $query .= " AND category = :category";
+                $params['category'] = $category;
+            }
+
+            // Limit the results
+            $query .= " LIMIT 9";
+
+            $post = $conn->prepare($query);
+            $post->execute($params);
+
             if ($post->rowCount() > 0) {
                 while ($fetch_post =  $post->fetch(PDO::FETCH_ASSOC)) {
                     $post_id = $fetch_post['id'];
@@ -66,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
                     $final_comments_num = $comments_num->rowCount();
                     $likes_num = $conn->prepare("SELECT * FROM `likes` WHERE post_id = ?");
                     $likes_num->execute([$post_id]);
-                    $final_likes_num = $comments_num->rowCount();
+                    $final_likes_num = $likes_num->rowCount();
             ?>
 
                     <div class="col-md-6 col-lg-4 mb-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
@@ -89,9 +125,10 @@ if (isset($_SESSION['user_id'])) {
             <?php
                 }
             } else {
-                echo '<p class="empty">no posts added yet!</p>';
+                echo '<p class="empty">No posts found!</p>';
             }
             ?>
+
             <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                 <div class="col-12">
                     <div class="pagination text-small text-uppercase text-extra-dark-gray">

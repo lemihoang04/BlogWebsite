@@ -35,11 +35,11 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
     <div class="container">
-        <form method="GET" action="">
-            <div class="row mt-3 mb-3">
+        <form id="searchForm" method="GET" onsubmit="myFunction(this);">
+            <div class=" row mt-3 mb-3">
                 <div class="col d-flex">
                     <h4 for="categorySelect" class="me-2 mb-0">Category</h4>
-                    <select name="category" class="form-select rounded-5" aria-label="Default select example">
+                    <select id="categorySelect" name="category" class="form-select rounded-5" aria-label="Default select example">
                         <option value="" <?= isset($_GET['category']) && $_GET['category'] == '' ? 'selected' : '' ?>>All</option>
                         <?php
                         $category = $conn->prepare("SELECT DISTINCT category FROM posts");
@@ -67,7 +67,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </form>
-        <div class="row mt-n5">
+        <div id="results" class="row mt-n5">
             <?php
             $search = isset($_GET['search']) ? $_GET['search'] : '';
             $category = isset($_GET['category']) ? $_GET['category'] : '';
@@ -87,9 +87,6 @@ if (isset($_SESSION['user_id'])) {
                 $query .= " AND category = :category";
                 $params['category'] = $category;
             }
-
-            // Limit the results
-            $query .= " LIMIT 9";
 
             $post = $conn->prepare($query);
             $post->execute($params);
@@ -146,7 +143,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript"></script>
+    <script src="../assets/js/index.js?v=3"></script>
 
 </body>
 

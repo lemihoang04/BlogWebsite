@@ -1,8 +1,9 @@
-<link rel="stylesheet" type="text/css" href="../assets/css/navbar.css?v=2">
-<nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+<link rel="stylesheet" type="text/css" href="../assets/css/navbar.css?v=9">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg custom-navbar">
   <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="../assets/images/logo1.png" alt="Logo" width="40" height="auto">
+    <a class="navbar-brand" href="index.php">
+      <img src="../assets/images/logo1.png" alt="Logo" width="40" height="40">
+      BLOG
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

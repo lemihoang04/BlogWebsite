@@ -94,13 +94,14 @@
 
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editUserForm" action="../controller/usercrud.php" method="post">
+        <form id="editUserForm" action="../controller/usercrud.php" method="POST" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
                     <div class="mb-3">
                         <label for="userName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="userName" name="name">
@@ -116,16 +117,17 @@
                             <img id="avatarPreview" src="" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%;">
                         </div>
                         <!-- Cho phép chọn file ảnh mới -->
-                        <input type="file" class="form-control" id="userAvatarFile" name="avatar" accept="image/*">
+                        <input type="file" name="image" class="form-control" id="userAvatarFile" name="avatar" accept="image/*">
                     </div>
                     <input type="hidden" id="userId" name="id">
-                </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="update" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 

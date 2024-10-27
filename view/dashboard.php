@@ -27,7 +27,7 @@
                 <div class="form-group text-center">
                     <label for="avatar">Avatar</label>
                     <div>
-                        <img id="avatarPreview" src="../assets/images/<?= $userfetch['avatar'] ?>" alt="Avatar" class="img-thumbnail mb-3" style="width: 250px; height: 250px; object-fit: cover;">
+                        <img id="avatarPreview" src="../assets/images/avatars/<?= $userfetch['avatar'] ?>" alt="Avatar" class="img-thumbnail mb-3" style="width: 250px; height: 250px; object-fit: cover;">
                     </div>
                     <input type="file" name="image" class="form-control-file" id="avatar" onchange="previewAvatar(event)">
                 </div>

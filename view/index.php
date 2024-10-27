@@ -78,7 +78,7 @@ if (isset($_SESSION['user_id'])) {
 
             // Add search filter if provided
             if (!empty($search)) {
-                $query .= " AND (title LIKE :search OR content LIKE :search)";
+                $query .= " AND (title LIKE :search)";
                 $params['search'] = '%' . $search . '%';
             }
 
@@ -104,7 +104,7 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="col-md-6 col-lg-4 mb-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
-                            <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/<?= $fetch_post['image'] ?>"></div>
+                            <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/posts/<?= $fetch_post['image'] ?>"></div>
                             <div class="blog-grid-text p-3">
                                 <h3 class="h5 mb-2"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
                                 <p class="display-30"><?= $fetch_post['content']; ?></p>

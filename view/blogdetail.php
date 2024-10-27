@@ -61,7 +61,7 @@ $get_id = $_GET['post_id'];
                                 <div class="body">
                                     <h2><?= $fetch_post['title'] ?></h2>
                                     <div class="img-post">
-                                        <img class="d-block img-fluid" src="../assets/images/<?= $fetch_post['image'] ?>" alt="First slide">
+                                        <img class="d-block img-fluid" src="../assets/images/posts/<?= $fetch_post['image'] ?>" alt="First slide">
                                     </div>
                                     <p><?= $fetch_post['content']; ?></p>
 

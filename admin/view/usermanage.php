@@ -6,6 +6,17 @@
     <!-- User Management Section -->
     <div id="manage-users">
         <h2>Manage Users</h2>
+        <?php
+        if (isset($_SESSION['message'])) {
+        ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong></strong> <?= $_SESSION['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php
+            unset($_SESSION['message']);
+        }
+        ?>
         <div class="row mt-3 mb-3">
             <div class="col">
                 <button id="toggle-user-form" class="btn btn-primary mr-2">Add User</button>
@@ -22,7 +33,7 @@
         </div>
         <!-- User Form -->
         <div id="add-users" class="d-none">
-            <form id="user-form" class="mb-4">
+            <form id="user-form" class="mb-4" action="../controller/usercrud.php" method="POST" enctype="multipart/form-data">
                 <div class="mb-1">
                     <label for="user-name" class="form-label">Name</label>
                     <input type="text" name="name" class="form-control" id="user-name" placeholder="Name" required>
@@ -37,9 +48,9 @@
                 </div>
                 <div class="mb-1">
                     <label for="user-picture" class="form-label">Avatar</label>
-                    <input type="file" class="form-control" id="user-picture" accept="image/*">
+                    <input type="file" name="image" class="form-control" id="user-picture" accept="image/*">
                 </div>
-                <button type="submit" class="btn btn-success">Add User</button>
+                <button type="submit" name="adduser" class="btn btn-success">Add User</button>
             </form>
         </div>
 
@@ -68,7 +79,7 @@
                             <td><?= $user['avatar'] ?></td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="editUser(<?= $user['id'] ?>)">Edit</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user['id'] ?>)">Delete</button>
+                                <button class="btn btn-danger btn-sm" onclick="showDeleteModal(<?= $user['id'] ?>)">Delete</button>
                             </td>
                         </tr>
                 <?php
@@ -81,7 +92,44 @@
         </table>
     </div>
 </div>
+<!-- Modal Bootstrap để xác nhận xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    let deleteUserId = null;
+
+    function showDeleteModal(id) {
+        deleteUserId = id;
+        $('#deleteModal').modal('show');
+    }
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        if (deleteUserId) {
+
+            window.location.href = '../controller/usercrud.php?id=' + deleteUserId; // Chuyển đến trang xóa nếu xác nhận
+        }
+    });
+</script>
 <script>
     // Toggle form visibility
     document.getElementById('toggle-user-form').addEventListener('click', function() {
@@ -96,7 +144,10 @@
 
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

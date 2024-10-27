@@ -1,15 +1,11 @@
 <?php include("sidebar.php"); ?>
 <div class="col py-3 ms-3">
-    <!-- Button to toggle form visibility -->
-
-
-    <!-- User Management Section -->
     <div id="manage-users">
         <h2>Manage Users</h2>
         <?php
         if (isset($_SESSION['message'])) {
         ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
                 <strong></strong> <?= $_SESSION['message']; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -31,7 +27,6 @@
                 </div>
             </div>
         </div>
-        <!-- User Form -->
         <div id="add-users" class="d-none">
             <form id="user-form" class="mb-4" action="../controller/usercrud.php" method="POST" enctype="multipart/form-data">
                 <div class="mb-1">
@@ -48,13 +43,12 @@
                 </div>
                 <div class="mb-1">
                     <label for="user-picture" class="form-label">Avatar</label>
-                    <input type="file" name="image" class="form-control" id="user-picture" accept="image/*">
+                    <input type="file" name="image" class="form-control" id="user-picture">
                 </div>
                 <button type="submit" name="adduser" class="btn btn-success">Add User</button>
             </form>
         </div>
 
-        <!-- User Table -->
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
                 <tr>
@@ -78,7 +72,12 @@
                             <td><?= $user['email'] ?></td>
                             <td><?= $user['avatar'] ?></td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="editUser(<?= $user['id'] ?>)">Edit</button>
+                                <button class="btn btn-warning btn-sm"
+                                    data-id="<?= $user['id'] ?>"
+                                    data-name="<?= $user['name'] ?>"
+                                    data-email="<?= $user['email'] ?>"
+                                    data-avatar="<?= $user['avatar'] ?>"
+                                    onclick="editUser(this)">Edit</button>
                                 <button class="btn btn-danger btn-sm" onclick="showDeleteModal(<?= $user['id'] ?>)">Delete</button>
                             </td>
                         </tr>
@@ -92,7 +91,44 @@
         </table>
     </div>
 </div>
-<!-- Modal Bootstrap để xác nhận xóa -->
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" action="../controller/usercrud.php" method="post">
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="userName" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="userEmail" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userAvatar" class="form-label">Avatar</label>
+                        <!-- Hiển thị ảnh avatar hiện tại -->
+                        <div class="mb-2">
+                            <img id="avatarPreview" src="" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%;">
+                        </div>
+                        <!-- Cho phép chọn file ảnh mới -->
+                        <input type="file" class="form-control" id="userAvatarFile" name="avatar" accept="image/*">
+                    </div>
+                    <input type="hidden" id="userId" name="id">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -114,19 +150,49 @@
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    function editUser(button) {
+        // Lấy dữ liệu từ các thuộc tính data-* của nút
+        var userId = button.getAttribute('data-id');
+        var userName = button.getAttribute('data-name');
+        var userEmail = button.getAttribute('data-email');
+        var userAvatar = button.getAttribute('data-avatar');
 
+        // Gán dữ liệu vào các trường input của modal
+        document.getElementById('userId').value = userId;
+        document.getElementById('userName').value = userName;
+        document.getElementById('userEmail').value = userEmail;
+        document.getElementById('avatarPreview').src = '../../assets/images/avatars/' + userAvatar;
+
+        // Hiển thị modal chỉnh sửa
+        var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editUserModal.show();
+    }
+    document.getElementById('userAvatarFile').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Cập nhật src của ảnh xem trước
+                document.getElementById('avatarPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file); // Đọc file dưới dạng URL dữ liệu
+        }
+    });
+</script>
 <script>
     let deleteUserId = null;
 
     function showDeleteModal(id) {
         deleteUserId = id;
         $('#deleteModal').modal('show');
+
     }
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
         if (deleteUserId) {
 
-            window.location.href = '../controller/usercrud.php?id=' + deleteUserId; // Chuyển đến trang xóa nếu xác nhận
+            window.location.href = '../controller/usercrud.php?deleteid=' + deleteUserId; // Chuyển đến trang xóa nếu xác nhận
         }
     });
 </script>

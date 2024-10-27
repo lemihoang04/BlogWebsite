@@ -13,7 +13,7 @@ if (isset($_POST['adduser'])) {
     $image = filter_var($image, FILTER_SANITIZE_STRING);
     $image_size = $_FILES['image']['size'];
     $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = '../assets/images/avatars/';
+    $image_folder = '../../assets/images/avatars/';
     $uploadFile = $image_folder . $image;
 
     $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
@@ -22,7 +22,7 @@ if (isset($_POST['adduser'])) {
         $_SESSION['message'] = 'Email already exists!';
         header('location:../view/register.php');
     } else {
-        if (isset($image)) {
+        if (isset($image) && $_FILES['image']['error'] == 0) {
             if ($image_size > 2000000) {
                 $_SESSION['message'] = 'images size is too large!';
                 header('location:../view/usermanage.php');
@@ -48,15 +48,11 @@ if (isset($_POST['adduser'])) {
             header('location: ../view/usermanage.php');
         }
     }
-} else if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Xóa người dùng
+} else if (isset($_GET['deleteid'])) {
+    $id = $_GET['deleteid'];
     $deleteUser = $conn->prepare('DELETE FROM users WHERE id = :id');
     $deleteUser->bindParam(':id', $id, PDO::PARAM_INT);
-
     if ($deleteUser->execute()) {
-        // Chuyển hướng sau khi xóa thành công
         header('Location: ../view/usermanage.php');
     } else {
         echo 'Error deleting user.';

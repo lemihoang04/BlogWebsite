@@ -13,7 +13,7 @@ if (isset($_POST['register_btn'])) {
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = sha1($_POST['cpass']);
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
-
+   $image = 'user.png';
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
    $select_user->execute([$email]);
 
@@ -25,8 +25,8 @@ if (isset($_POST['register_btn'])) {
          $_SESSION['message'] = 'Confirm password not matched!';
          header('location:../view/register.php');
       } else {
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
-         $insert_user->execute([$name, $email, $cpass]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password, avatar) VALUES(?,?,?,?)");
+         $insert_user->execute([$name, $email, $cpass, $image]);
          $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
          $select_user->execute([$email, $pass]);
          if ($select_user->rowCount() > 0) {

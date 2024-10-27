@@ -18,7 +18,7 @@ if (isset($_POST['update'])) {
     $image_tmp_name = $_FILES['image']['tmp_name'];
     $image_folder = '../assets/images/avatars/';
     $uploadFile = $image_folder . $image;
-    if (isset($image)) {
+    if (isset($image) && $_FILES['image']['error'] == 0) {
         if ($image_size > 2000000) {
             $_SESSION['message'] = 'images size is too large!';
             header('location:../view/dashboard.php');
@@ -32,15 +32,15 @@ if (isset($_POST['update'])) {
             $update = $conn->prepare("UPDATE users SET name = ?, avatar = ? WHERE id = ?");
             $update->execute([$name, $image, $user_id]);
             $_SESSION['message'] = "Updated successfully";
-            header('location:../view/dashboard.php');
+            header('location:../view/userinfo.php');
         } else {
             $_SESSION['message'] = 'Possible file upload attack!\n';
-            header('location:../view/dashboard.php');
+            header('location:../view/userinfo.php');
         }
     } else {
         $update = $conn->prepare("UPDATE users SET name = ? WHERE id = ?");
         $update->execute([$name, $user_id]);
         $_SESSION['message'] = "Updated successfully";
-        header('location:../view/dashboard.php');
+        header('location:../view/userinfo.php');
     }
 }

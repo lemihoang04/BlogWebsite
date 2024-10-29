@@ -20,7 +20,7 @@ $get_id = $_GET['post_id'];
     <meta charset="utf-8">
     <title>Blog Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link href="../assets/css/bootstrap.min.css?v=7" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
 
@@ -76,7 +76,6 @@ $get_id = $_GET['post_id'];
                                 <div class="header">
                                     <h2>Comments <?= $final_comments_num; ?></h2>
                                 </div>
-
                                 <div class="body">
                                     <div id="comments-section">
                                         <?php
@@ -88,7 +87,7 @@ $get_id = $_GET['post_id'];
                                                 <ul class="comment-reply list-unstyled">
                                                     <li class="row clearfix">
                                                         <div class="icon-box col-md-2 col-4">
-                                                            <img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image">
+                                                            <img class="img-fluid img-thumbnail" src="../assets/images/avatars/<?= $userfetch['avatar'] ?>" alt="Awesome Image">
                                                         </div>
                                                         <div class="text-box col-md-10 col-8 p-l-0 p-r0">
                                                             <h5 class="m-b-0"><?= $fetch_comments['user_name'] ?></h5>
@@ -152,7 +151,15 @@ $get_id = $_GET['post_id'];
                         </div>
                         <div class="body widget">
                             <ul class="list-unstyled categories-clouds m-b-0">
-                                <li><a href="javascript:void(0);">eCommerce</a></li>
+                                <?php
+                                $category = $conn->prepare("SELECT DISTINCT category FROM posts");
+                                $category->execute();
+                                while ($category_item = $category->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <li><a href="./index.php?category=<?= $category_item['category'] ?>"><?= $category_item['category'] ?></a></li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -162,22 +169,23 @@ $get_id = $_GET['post_id'];
                         </div>
                         <div class="body widget popular-post">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="single_post">
-                                        <p class="m-b-0">Apple Introduces Search Ads Basic</p>
-                                        <span>jun 22, 2018</span>
-                                        <div class="img-post">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">
+                                <?php
+                                $popularpost = $conn->prepare("SELECT *, (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) AS like_count FROM posts p ORDER BY like_count DESC LIMIT 2");
+                                $popularpost->execute();
+                                while ($ppost = $popularpost->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <div class="col-lg-12">
+                                        <div class="single_post">
+                                            <p class="m-b-0"><?= $ppost['title'] ?></p>
+                                            <span><?= $ppost['date'] ?></span>
+                                            <div class="img-post">
+                                                <img src="../assets/images/posts/<?= $ppost['image'] ?>" alt="Awesome Image">
+                                            </div>
                                         </div>
+                                    <?php
+                                }
+                                    ?>
                                     </div>
-                                    <div class="single_post">
-                                        <p class="m-b-0">new rules, more cars, more races</p>
-                                        <span>jun 8, 2018</span>
-                                        <div class="img-post">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000" alt="Awesome Image">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="utf-8">
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/index.css?v=3">
     <link href="../assets/css/bootstrap.min.css?v=1" rel="stylesheet">

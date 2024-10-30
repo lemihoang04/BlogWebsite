@@ -73,6 +73,24 @@ $get_id = $_GET['post_id'];
                                 </button>
                             </div>
                             <div class="card">
+                                <div class="header p-n2">
+                                    <h2>Leave a comment</h2>
+                                </div>
+                                <div class="body">
+                                    <div class="comment-form">
+                                        <div id="commentForm" class="row clearfix">
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea id="comment_content" rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                                </div>
+                                                <button id="comment_submit" class="btn btn-block btn-primary mt-2">SUBMIT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
                                 <div class="header">
                                     <h2>Comments <?= $final_comments_num; ?></h2>
                                 </div>
@@ -107,24 +125,7 @@ $get_id = $_GET['post_id'];
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="header">
-                                    <h2>Leave a comment</h2>
-                                </div>
-                                <div class="body">
-                                    <div class="comment-form">
-                                        <div id="commentForm" class="row clearfix">
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <textarea id="comment_content" rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                                                </div>
-                                                <button id="comment_submit" class="btn btn-block btn-primary">SUBMIT</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                 <?php
                     }
@@ -189,24 +190,7 @@ $get_id = $_GET['post_id'];
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="header">
-                            <h2>Instagram Post</h2>
-                        </div>
-                        <div class="body widget">
-                            <ul class="list-unstyled instagram-plugin m-b-0">
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                                <li><a href="javascript:void(0);"><img src="https://www.bootdey.com/image/100x100/87CEFA/000000" alt="image description"></a></li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div class="card">
                         <div class="header">
                             <h2>Email Newsletter <small>Get our products/news earlier than others, let’s get in touch.</small></h2>

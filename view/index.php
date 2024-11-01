@@ -72,27 +72,55 @@ if (isset($_SESSION['user_id'])) {
             $search = isset($_GET['search']) ? $_GET['search'] : '';
             $category = isset($_GET['category']) ? $_GET['category'] : '';
             $status = 'active';
+            $limit = 6; // Number of posts per page
 
+            // Get the current page or set default to 1
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $page = max($page, 1); // Ensure the page number is at least 1
+            $offset = ($page - 1) * $limit;
+
+            // Count total posts for pagination
+            $countQuery = "SELECT COUNT(*) FROM posts WHERE status = :status";
+            $countParams = ['status' => $status];
+
+            if (!empty($search)) {
+                $countQuery .= " AND (title LIKE :search)";
+                $countParams['search'] = '%' . $search . '%';
+            }
+
+            if (!empty($category)) {
+                $countQuery .= " AND category = :category";
+                $countParams['category'] = $category;
+            }
+
+            $countStmt = $conn->prepare($countQuery);
+            $countStmt->execute($countParams);
+            $totalPosts = $countStmt->fetchColumn();
+            $totalPages = ceil($totalPosts / $limit);
+
+            // Main query to fetch posts with pagination
             $query = "SELECT * FROM posts WHERE status = :status";
             $params = ['status' => $status];
 
-            // Add search filter if provided
             if (!empty($search)) {
                 $query .= " AND (title LIKE :search)";
                 $params['search'] = '%' . $search . '%';
             }
 
-            // Add category filter if selected
             if (!empty($category)) {
                 $query .= " AND category = :category";
                 $params['category'] = $category;
             }
 
+            $query .= " LIMIT $limit OFFSET $offset";
+
+            // Execute without binding `:limit` and `:offset`
             $post = $conn->prepare($query);
             $post->execute($params);
 
+
             if ($post->rowCount() > 0) {
-                while ($fetch_post =  $post->fetch(PDO::FETCH_ASSOC)) {
+                while ($fetch_post = $post->fetch(PDO::FETCH_ASSOC)) {
                     $post_id = $fetch_post['id'];
                     $comments_num = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ?");
                     $comments_num->execute([$post_id]);
@@ -101,7 +129,6 @@ if (isset($_SESSION['user_id'])) {
                     $likes_num->execute([$post_id]);
                     $final_likes_num = $likes_num->rowCount();
             ?>
-
                     <div class="col-md-6 col-lg-4 mb-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="blog-grid">
                             <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/posts/<?= $fetch_post['image'] ?>"></div>
@@ -130,16 +157,23 @@ if (isset($_SESSION['user_id'])) {
                 <div class="col-12">
                     <div class="pagination text-small text-uppercase text-extra-dark-gray">
                         <ul>
-                            <li><a href="#!"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a></li>
-                            <li class="active"><a href="#!">1</a></li>
-                            <li><a href="#!">2</a></li>
-                            <li><a href="#!">3</a></li>
-                            <li><a href="#!">Next <i class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a></li>
+                            <?php if ($page > 1): ?>
+                                <li><a href="?page=<?= $page - 1; ?>&search=<?= $search; ?>&category=<?= $category; ?>"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a></li>
+                            <?php endif; ?>
+
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <li class="<?= ($i == $page) ? 'active' : ''; ?>"><a href="?page=<?= $i; ?>&search=<?= $search; ?>&category=<?= $category; ?>"><?= $i; ?></a></li>
+                            <?php endfor; ?>
+
+                            <?php if ($page < $totalPages): ?>
+                                <li><a href="?page=<?= $page + 1; ?>&search=<?= $search; ?>&category=<?= $category; ?>">Next <i class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -16,7 +16,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Material Dashboard 2 by Creative Tim
+        Admin
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -36,6 +36,8 @@ if (isset($_SESSION['user_id'])) {
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"> <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"> <span class="fs-5 d-none d-sm-inline">Menu</span> </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item"> <a href="addpost.php" class="nav-link align-middle px-0"> <i class="fs-4 bi bi-plus-square"></i> <span class="ms-1 d-none d-sm-inline">
+                                    Add post</span> </a> </li>
                         <li class="nav-item"> <a href="postmanage.php" class="nav-link align-middle px-0"> <i class="fs-4 bi bi-postcard"></i> <span class="ms-1 d-none d-sm-inline">
                                     Post management</span> </a> </li>
                         <li class="nav-item"> <a href="usermanage.php" class="nav-link align-middle px-0"> <i class="fs-4 bi bi-person-gear"></i> <span class="ms-1 d-none d-sm-inline">

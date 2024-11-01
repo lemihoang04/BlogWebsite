@@ -5,8 +5,8 @@
         <?php
         if (isset($_SESSION['message'])) {
         ?>
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong></strong> <?= $_SESSION['message']; ?>
+            <div class="alert alert-<?= (isset($_SESSION['alerttype']) ? $_SESSION['alerttype'] : 'primary') ?> alert-dismissible fade show" role="alert">
+                <?= $_SESSION['message']; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php
@@ -15,7 +15,7 @@
         ?>
         <div class="row mt-3 mb-3">
             <div class="col">
-                <button id="toggle-post-form" class="btn btn-primary mr-2">Add Post</button>
+                <a class="btn btn-primary" href="addpost.php" role="button">Add Post</a>
             </div>
             <div class="col-4"></div>
             <div class="col">
@@ -27,27 +27,7 @@
                 </div>
             </div>
         </div>
-        <div id="add-posts" class="d-none">
-            <form id="post-form" class="mb-4" action="../controller/postcrud.php" method="POST" enctype="multipart/form-data">
-                <div class="mb-1">
-                    <label for="post-title" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="post-title" placeholder="Title" required>
-                </div>
-                <div class="mb-1">
-                    <label for="post-content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control" id="post-content" placeholder="Content" required></textarea>
-                </div>
-                <div class="mb-1">
-                    <label for="post-category" class="form-label">Category</label>
-                    <input type="text" name="category" class="form-control" id="post-category" placeholder="Category" required>
-                </div>
-                <div class="mb-1">
-                    <label for="post-image" class="form-label">Image</label>
-                    <input type="file" name="image" class="form-control" id="post-image">
-                </div>
-                <button type="submit" name="addpost" class="btn btn-success">Add Post</button>
-            </form>
-        </div>
+
 
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
@@ -93,6 +73,21 @@
                 ?>
             </tbody>
         </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
@@ -212,17 +207,6 @@
     document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
         if (deletePostId) {
             window.location.href = '../controller/postcrud.php?deleteid=' + deletePostId; // Chuyển đến trang xóa nếu xác nhận
-        }
-    });
-</script>
-<script>
-    // Toggle form visibility
-    document.getElementById('toggle-post-form').addEventListener('click', function() {
-        const managePostsDiv = document.getElementById('add-posts');
-        if (managePostsDiv.classList.contains('d-none')) {
-            managePostsDiv.classList.remove('d-none');
-        } else {
-            managePostsDiv.classList.add('d-none');
         }
     });
 </script>

@@ -50,7 +50,8 @@ if (isset($_POST['register_btn'])) {
       $_SESSION['user_id'] = $row['id'];
       header('location:../view/index.php');
    } else {
-      $_SESSION['message'] = 'incorrect username or password!';
+      $_SESSION['message'] = 'Incorrect username or password!';
+      $_SESSION['alerttype'] = 'danger';
       header('location: ../view/login.php');
    }
 }

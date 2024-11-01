@@ -1,87 +1,97 @@
 <?php
 session_start();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
-    <link href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/login.css">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/login1.css?v=1">
+    <title>Login</title>
 </head>
 
 <body>
-    <div class="outer-container">
-        <section class="vh-100">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 text-black">
+
+    <!----------------------- Main Container -------------------------->
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+        <!----------------------- Login Container -------------------------->
+
+        <div class="row border rounded-4 p-3 bg-white shadow box-area">
+
+            <!--------------------------- Left Box ----------------------------->
+
+            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background-image: url('../assets/images/lake.jpg');">
+
+                <!-- <div class="featured-image mb-3">
+                    <img src="../assets/images/lake.jpg" class="img-fluid" style="width: 100%;"> -->
+                <!-- </div> -->
+                <!-- <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
+                <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers on this platform.</small> -->
+            </div>
+
+            <!-------------------- ------ Right Box ---------------------------->
+
+            <div class="col-md-6 right-box">
+                <div class="row align-items-center">
+                    <div class="header-text mb-4">
                         <?php
                         if (isset($_SESSION['message'])) {
                         ?>
-                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                <strong></strong> <?= $_SESSION['message']; ?>
+                            <div class="alert alert-<?= (isset($_SESSION['alerttype']) ? $_SESSION['alerttype'] : 'primary') ?> alert-dismissible fade show" role="alert">
+                                <?= $_SESSION['message']; ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php
                             unset($_SESSION['message']);
                         }
                         ?>
-                        <div class="px-5 ms-xl-4">
-                            <img src="../assets/images/logo1.png" alt="Logo" style="width: 100px; height: auto; margin-top: 30px;">
-                        </div>
+                        <h2>Login</h2>
 
-                        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 pt-5 pt-xl-0 mt-xl-n5">
-
-                            <form style="width: 23rem;" action="../controller/login_register.php" method="POST">
-
-                                <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
-
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="addon-wrapping">Email</span>
-                                    <input type="text" class="form-control" placeholder="" name="email" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="addon-wrapping">Password</span>
-                                    <input type="password" class="form-control" placeholder="" name="pass" id="pass" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-
-                                <div class="pt-1 mb-4">
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-block" type="submit" name="login_btn">Login</button>
-                                </div>
-
-                                <!-- <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p> -->
-                                <input type="checkbox" id="showpass" class="showpass" name="showpass"><label for=" showpass"> Show password</label>
-
-                                <p>Don't have an account? <a href="register.php" class="link-info">Register here</a></p>
-                            </form>
-                        </div>
                     </div>
-                    <div class="col-sm-6 px-0 d-none d-sm-block">
-                        <img src="../assets/images/japan.jpg"
-                            alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                    <form action="../controller/login_register.php" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email address">
+                        </div>
+                        <div class="input-group mb-1">
+                            <input type="password" name="pass" id="pass" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
+                        </div>
+                        <div class="input-group mb-5 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="showpass">
+                                <label for="formCheck" class="form-check-label text-secondary"><small>Show password</small></label>
+                            </div>
+                            <div class="forgot">
+                                <small><a href="#">Forgot Password?</a></small>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <button type="submit" name="login_btn" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                        </div>
+                    </form>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-lg btn-light w-100 fs-6"><img src="../assets/images/google.png" style="width:20px" class="me-2"><small>Sign In with Google</small></button>
+                    </div>
+                    <div class="row">
+                        <small>Don't have account? <a href="#">Sign Up</a></small>
                     </div>
                 </div>
             </div>
-        </section>
-        <script>
-            document.getElementById("showpass").addEventListener("change", function() {
-                var passwordInput = document.getElementById("pass");
-                if (this.checked) {
-                    passwordInput.type = "text"; // Hiển thị mật khẩu
-                } else {
-                    passwordInput.type = "password"; // Ẩn mật khẩu
-                }
-            });
-        </script>
+
+        </div>
     </div>
+    <script>
+        document.getElementById("showpass").addEventListener("change", function() {
+            var passwordInput = document.getElementById("pass");
+            passwordInput.type = (this.checked) ? "text" : "password";
+        });
+    </script>
 </body>
+
+</html>

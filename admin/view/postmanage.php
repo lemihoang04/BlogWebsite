@@ -56,6 +56,7 @@
                     <th>Title</th>
                     <th>Category</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -71,6 +72,7 @@
                             <td><?= $post['title'] ?></td>
                             <td><?= $post['category'] ?></td>
                             <td><?= $post['date'] ?></td>
+                            <td><?= $post['status'] ?></td>
                             <td>
                                 <button class="btn btn-warning btn-sm"
                                     data-id="<?= $post['id'] ?>"
@@ -78,6 +80,7 @@
                                     data-category="<?= $post['category'] ?>"
                                     data-content="<?= $post['content'] ?>"
                                     data-image="<?= $post['image'] ?>"
+                                    data-status="<?= $post['status'] ?>"
                                     onclick="editPost(this)">Edit</button>
                                 <button class="btn btn-danger btn-sm" onclick="showDeleteModal(<?= $post['id'] ?>)">Delete</button>
                             </td>
@@ -119,10 +122,17 @@
                         <label for="postImage" class="form-label">Image</label>
                         <!-- Hiển thị ảnh hiện tại -->
                         <div class="mb-2">
-                            <img id="postImagePreview" src="" alt="Image" style="width: 100px; height: 100px;">
+                            <img id="postImagePreview" src="" alt="Image" style="width: 350px; height: 200px;">
                         </div>
                         <!-- Cho phép chọn file ảnh mới -->
                         <input type="file" name="image" class="form-control" id="postImageFile" name="image" accept="image/*">
+                    </div>
+                    <div class="mb-1">
+                        <label for="post-status" class="form-label">Status</label>
+                        <select name="status" class="form-select" id="post-status">
+                            <option value="active">Active</option>
+                            <option value="hidden">Hidden</option>
+                        </select>
                     </div>
                     <input type="hidden" id="postId" name="id">
 
@@ -165,6 +175,7 @@
         var postCategory = button.getAttribute('data-category');
         var postContent = button.getAttribute('data-content');
         var postImage = button.getAttribute('data-image');
+        var postStatus = button.getAttribute('data-status');
 
         // Gán dữ liệu vào các trường input của modal
         document.getElementById('postId').value = postId;
@@ -172,6 +183,7 @@
         document.getElementById('postCategory').value = postCategory;
         document.getElementById('postContent').value = postContent;
         document.getElementById('postImagePreview').src = '../../assets/images/posts/' + postImage;
+        document.getElementById('post-status').value = postStatus;
 
         // Hiển thị modal chỉnh sửa
         var editPostModal = new bootstrap.Modal(document.getElementById('editPostModal'));

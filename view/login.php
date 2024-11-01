@@ -79,7 +79,7 @@ session_start();
                         <button class="btn btn-lg btn-light w-100 fs-6"><img src="../assets/images/google.png" style="width:20px" class="me-2"><small>Sign In with Google</small></button>
                     </div>
                     <div class="row">
-                        <small>Don't have account? <a href="#">Sign Up</a></small>
+                        <small>Don't have account? <a href="register.php">Sign Up</a></small>
                     </div>
                 </div>
             </div>

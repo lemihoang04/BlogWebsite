@@ -33,8 +33,9 @@ if (isset($_POST['addpost'])) {
 
 
         if (move_uploaded_file($image_tmp_name, $uploadFile)) {
-            $insert_post = $conn->prepare("INSERT INTO `posts` (title, content, category, image) VALUES (?, ?, ?, ?)");
-            $insert_post->execute([$title, $content, $category, $image]);
+            $insert_post = $conn->prepare("INSERT INTO `posts` (title, content, category, image, status) VALUES (?, ?, ?, ?, ?)");
+            $status = 'active';
+            $insert_post->execute([$title, $content, $category, $image, $status]);
             $_SESSION['message'] = "Post added successfully!";
             header('location: ../view/postmanage.php');
         } else {
@@ -47,5 +48,14 @@ if (isset($_POST['addpost'])) {
         $insert_post->execute([$title, $content, $category]);
         $_SESSION['message'] = "Post added successfully!";
         header('location: ../view/postmanage.php');
+    }
+} else if (isset($_GET['deleteid'])) {
+    $id = $_GET['deleteid'];
+    $deleteUser = $conn->prepare('DELETE FROM posts WHERE id = :id');
+    $deleteUser->bindParam(':id', $id, PDO::PARAM_INT);
+    if ($deleteUser->execute()) {
+        header('Location: ../view/postmanage.php');
+    } else {
+        echo 'Error deleting user.';
     }
 }

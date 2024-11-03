@@ -133,7 +133,7 @@ if (isset($_SESSION['user_id'])) {
                         <div class="blog-grid">
                             <div class="blog-grid-img position-relative"><img alt="img" style="height: 200px" src="../assets/images/posts/<?= $fetch_post['image'] ?>"></div>
                             <div class="blog-grid-text p-3">
-                                <h3 class="h5 mb-2"><a href="blogdetail.php?post_id=<?= $post_id; ?>"><?= $fetch_post['title'] ?></a></h3>
+                                <h3 class="h5 mb-2"><a href="blogdetail.php?post_id=<?= $post_id; ?>" title="<?= $fetch_post['title'] ?>"><?= $fetch_post['title'] ?></a></h3>
                                 <p class="display-30"><?= $fetch_post['content']; ?></p>
                                 <div class="meta meta-style2">
                                     <ul>

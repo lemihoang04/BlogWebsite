@@ -115,15 +115,21 @@ $get_id = $_GET['post_id'];
                                                                     </h5>
                                                                 </div>
                                                                 <div class="col d-flex justify-content-end">
-                                                                    <span class="icon-actions">
-                                                                        <a href="edit_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-info p-1" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                                        <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-danger p-1" title="Delete"><i class="fas fa-trash"></i></a>
-                                                                    </span>
+                                                                    <?php
+                                                                    if ($user_id == $fetch_comments['user_id']) {
+                                                                    ?>
+                                                                        <span class="icon-actions">
+                                                                            <a href="edit_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-info p-1" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                                            <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-danger p-1" title="Delete"><i class="fas fa-trash"></i></a>
+                                                                        </span>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                             <p><?= $fetch_comments['comment'] ?></p>
                                                             <ul class="list-inline">
-                                                                <li><a href="javascript:void(0);"><?= $fetch_comments['date'] ?></a></li>
+                                                                <li><a href=""><?= $fetch_comments['date'] ?></a></li>
                                                             </ul>
                                                         </div>
                                                     </li>
@@ -148,16 +154,18 @@ $get_id = $_GET['post_id'];
 
 
                 <div class="col-lg-4 col-md-12 right-box">
-                    <div class="card">
-                        <div class="body search">
-                            <div class="input-group m-b-0">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    <form action="" action="GET">
+                        <div class="card">
+                            <div class="body search">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1">
                                 </div>
-                                <input type="text" class="form-control" placeholder="Search...">
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="card">
                         <div class="header">
                             <h2>Categories</h2>

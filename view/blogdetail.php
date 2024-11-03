@@ -107,8 +107,20 @@ $get_id = $_GET['post_id'];
                                                         <div class="icon-box col-md-2 col-4">
                                                             <img class="img-fluid img-thumbnail" src="../assets/images/avatars/<?= $userfetch['avatar'] ?>" alt="Awesome Image">
                                                         </div>
-                                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
-                                                            <h5 class="m-b-0"><?= $fetch_comments['user_name'] ?></h5>
+                                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0 ">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <h5 class="m-b-0">
+                                                                        <?= $fetch_comments['user_name'] ?>
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-end">
+                                                                    <span class="icon-actions">
+                                                                        <a href="edit_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-info p-1" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                                        <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-danger p-1" title="Delete"><i class="fas fa-trash"></i></a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                             <p><?= $fetch_comments['comment'] ?></p>
                                                             <ul class="list-inline">
                                                                 <li><a href="javascript:void(0);"><?= $fetch_comments['date'] ?></a></li>

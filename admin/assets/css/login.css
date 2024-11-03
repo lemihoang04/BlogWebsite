@@ -1,0 +1,21 @@
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+    }
+    
+    @media (min-width: 1025px) {
+    .h-custom-2 {
+    height: 100%;
+    }
+    }
+.outer-container {
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #17a2b8; /* Solid 2px border with Bootstrap's "info" color */
+    max-width: 1200px;
+    background-color: #fff; /* Optional background color */
+  }

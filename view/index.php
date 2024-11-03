@@ -155,7 +155,7 @@ if (isset($_SESSION['user_id'])) {
 
             <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                 <div class="col-12">
-                    <div class="pagination text-small text-uppercase text-extra-dark-gray">
+                    <div class="pagination text-small text-uppercase text-extra-dark-gray p-3">
                         <ul>
                             <?php if ($page > 1): ?>
                                 <li><a href="?page=<?= $page - 1; ?>&search=<?= $search; ?>&category=<?= $category; ?>"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a></li>

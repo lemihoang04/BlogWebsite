@@ -9,16 +9,17 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-$comment_content = $_POST['comment_content'];
-$post_id = $_POST['post_id'];
-$username = $_POST['username'];
+if (isset($_POST['act'])) {
+    $comment_content = $_POST['comment_content'];
+    $post_id = $_POST['post_id'];
+    $username = $_POST['username'];
 
-if (!empty($user_id) && !empty($comment_content) && !empty($post_id)) {
-    $insert_comment = $conn->prepare("INSERT INTO `comments`(post_id, admin_id, user_id, user_name, comment) VALUES(?,?,?,?,?)");
-    $insert_comment->execute([$post_id, 1, $user_id, $username, $comment_content]);
+    if (!empty($user_id) && !empty($comment_content) && !empty($post_id)) {
+        $insert_comment = $conn->prepare("INSERT INTO `comments`(post_id, admin_id, user_id, user_name, comment) VALUES(?,?,?,?,?)");
+        $insert_comment->execute([$post_id, 1, $user_id, $username, $comment_content]);
 
-    if ($insert_comment) {
-        echo '<ul class="comment-reply list-unstyled">
+        if ($insert_comment) {
+            echo '<ul class="comment-reply list-unstyled">
             <li class="row clearfix">
                 <div class="icon-box col-md-2 col-4">
                     <img class="img-fluid img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Awesome Image">
@@ -32,7 +33,8 @@ if (!empty($user_id) && !empty($comment_content) && !empty($post_id)) {
                 </div>
             </li>
           </ul>';
-    } else {
-        echo 'error';
+        } else {
+            echo 'error';
+        }
     }
 }

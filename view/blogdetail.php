@@ -120,7 +120,9 @@ $get_id = $_GET['post_id'];
                                                                     ?>
                                                                         <span class="icon-actions">
                                                                             <a href="edit_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-info p-1" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                                            <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-danger p-1" title="Delete"><i class="fas fa-trash"></i></a>
+                                                                            <a href="#" class="text-danger p-1" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $fetch_comments['id'] ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </a>
                                                                         </span>
                                                                     <?php
                                                                     }
@@ -134,6 +136,23 @@ $get_id = $_GET['post_id'];
                                                         </div>
                                                     </li>
                                                 </ul>
+                                                <div class="modal fade" id="deleteModal<?= $fetch_comments['id'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?= $fetch_comments['id'] ?>" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteModalLabel<?= $fetch_comments['id'] ?>">Confirm Delete</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this comment?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="btn btn-danger">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         <?php
                                             }
                                         } else {
@@ -228,8 +247,10 @@ $get_id = $_GET['post_id'];
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script type="text/javascript">
         $('.like').click(function() {
             var data = {
@@ -260,6 +281,7 @@ $get_id = $_GET['post_id'];
             var username = "<?= $username; ?>";
             var post_id = "<?= $post_id; ?>";
             var user_id = "<?= $user_id; ?>";
+            var act = "add";
 
             if (comment_content != "") {
                 // Gửi dữ liệu bằng AJAX
@@ -270,7 +292,8 @@ $get_id = $_GET['post_id'];
                         user_id: user_id,
                         comment_content: comment_content,
                         post_id: post_id,
-                        username: username
+                        username: username,
+                        act: act
                     },
                     success: function(response) {
                         // Thêm bình luận mới vào phần bình luận

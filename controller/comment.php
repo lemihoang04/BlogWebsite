@@ -37,4 +37,23 @@ if (isset($_POST['act'])) {
             echo 'error';
         }
     }
+} elseif (isset($_REQUEST['delete_id'])) {
+
+
+    $delete_id = $_REQUEST['delete_id'];
+    $select_sql = $conn->prepare('SELECT * FROM comments WHERE id=?');
+    $select_sql->execute([$delete_id]);
+    $fetch_sql = $select_sql->fetch(PDO::FETCH_ASSOC);
+    $post_id_cmt_del = $fetch_sql['post_id'];
+    $delete_sql = $conn->prepare('DELETE FROM comments WHERE id=?');
+    $delete_sql->execute([$delete_id]);
+    header("location:../view/blogdetail.php?post_id={$post_id_cmt_del}");
+} elseif (isset($_POST['update'])) {
+    $comment_id = $_POST['comment_id'];
+    $post_id = $_POST['post_id'];
+    $comment_content = $_POST['comment_text'];
+    $comment_content = filter_var($comment_content, FILTER_SANITIZE_STRING);
+    $update = $conn->prepare("UPDATE comments SET comment = ? WHERE id = ?");
+    $update->execute([$comment_content, $comment_id]);
+    header("location:../view/blogdetail.php?post_id={$post_id}");
 }

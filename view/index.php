@@ -72,14 +72,14 @@ if (isset($_SESSION['user_id'])) {
             $search = isset($_GET['search']) ? $_GET['search'] : '';
             $category = isset($_GET['category']) ? $_GET['category'] : '';
             $status = 'active';
-            $limit = 6; // Number of posts per page
+            $limit = 6;
 
-            // Get the current page or set default to 1
+
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-            $page = max($page, 1); // Ensure the page number is at least 1
+            $page = max($page, 1);
             $offset = ($page - 1) * $limit;
 
-            // Count total posts for pagination
+
             $countQuery = "SELECT COUNT(*) FROM posts WHERE status = :status";
             $countParams = ['status' => $status];
 
@@ -98,7 +98,7 @@ if (isset($_SESSION['user_id'])) {
             $totalPosts = $countStmt->fetchColumn();
             $totalPages = ceil($totalPosts / $limit);
 
-            // Main query to fetch posts with pagination
+
             $query = "SELECT * FROM posts WHERE status = :status";
             $params = ['status' => $status];
 
@@ -114,7 +114,7 @@ if (isset($_SESSION['user_id'])) {
 
             $query .= " LIMIT $limit OFFSET $offset";
 
-            // Execute without binding `:limit` and `:offset`
+
             $post = $conn->prepare($query);
             $post->execute($params);
 

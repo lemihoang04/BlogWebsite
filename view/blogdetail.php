@@ -107,7 +107,7 @@ $get_id = $_GET['post_id'];
                                                         <div class="icon-box col-md-2 col-4">
                                                             <img class="img-fluid img-thumbnail" src="../assets/images/avatars/<?= $userfetch['avatar'] ?>" alt="Awesome Image">
                                                         </div>
-                                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0 ">
+                                                        <div class="text-box col-md-10 col-8 p-l-0 p-r0">
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <h5 class="m-b-0">
@@ -115,18 +115,12 @@ $get_id = $_GET['post_id'];
                                                                     </h5>
                                                                 </div>
                                                                 <div class="col d-flex justify-content-end">
-                                                                    <?php
-                                                                    if ($user_id == $fetch_comments['user_id']) {
-                                                                    ?>
+                                                                    <?php if ($user_id == $fetch_comments['user_id']) { ?>
                                                                         <span class="icon-actions">
-                                                                            <a href="edit_comment.php?id=<?= $fetch_comments['id'] ?>" class="text-info p-1" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                                            <a href="#" class="text-danger p-1" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $fetch_comments['id'] ?>">
-                                                                                <i class="fas fa-trash"></i>
-                                                                            </a>
+                                                                            <a href="#" class="text-info p-1" title="Edit" data-bs-toggle="modal" data-bs-target="#editModal<?= $fetch_comments['id'] ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                                            <a href="#" class="text-danger p-1" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $fetch_comments['id'] ?>"><i class="fas fa-trash"></i></a>
                                                                         </span>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
+                                                                    <?php } ?>
                                                                 </div>
                                                             </div>
                                                             <p><?= $fetch_comments['comment'] ?></p>
@@ -136,6 +130,8 @@ $get_id = $_GET['post_id'];
                                                         </div>
                                                     </li>
                                                 </ul>
+
+                                                <!-- Delete Modal -->
                                                 <div class="modal fade" id="deleteModal<?= $fetch_comments['id'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?= $fetch_comments['id'] ?>" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -148,8 +144,34 @@ $get_id = $_GET['post_id'];
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                <a href="delete_comment.php?id=<?= $fetch_comments['id'] ?>" class="btn btn-danger">Delete</a>
+                                                                <a href="../controller/comment.php?delete_id=<?= $fetch_comments['id'] ?>" class="btn btn-danger">Delete</a>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Edit Modal -->
+                                                <div class="modal fade" id="editModal<?= $fetch_comments['id'] ?>" tabindex="-1" aria-labelledby="editModalLabel<?= $fetch_comments['id'] ?>" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel<?= $fetch_comments['id'] ?>">Edit Comment</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="../controller/comment.php" method="POST">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="comment-text-<?= $fetch_comments['id'] ?>">Comment</label>
+                                                                        <textarea class="form-control" id="comment-text-<?= $fetch_comments['id'] ?>" name="comment_text"><?= $fetch_comments['comment'] ?></textarea>
+                                                                        <input type="hidden" name="comment_id" value="<?= $fetch_comments['id'] ?>">
+                                                                        <input type="hidden" name="post_id" value="<?= $post_id ?>">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                    <button type="submit" name="update" class="btn btn-primary">Save Changes</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,6 +183,7 @@ $get_id = $_GET['post_id'];
                                         ?>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -222,10 +245,11 @@ $get_id = $_GET['post_id'];
                                                 <img src="../assets/images/posts/<?= $ppost['image'] ?>" alt="Awesome Image">
                                             </div>
                                         </div>
-                                    <?php
-                                }
-                                    ?>
                                     </div>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                     </div>
@@ -238,11 +262,14 @@ $get_id = $_GET['post_id'];
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Enter Email">
                                 <div class="input-group-append">
-                                    <span class="input-group-text"><i class="icon-paper-plane"></i></span>
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
